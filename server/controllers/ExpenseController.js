@@ -1,21 +1,38 @@
 const Expense = require("../models/Expense");
 const Budget = require("../models/Budget");
+const User = require("../models/User");
 
 // get all expenses
-const getAllExpenses = async (req, res) => {
+const getAllExpensesByUserId = async (req, res) => {
   // get the userId from the req object set using the cookies
   const { userId } = req;
 
-  // check if the request is for recent expenses
-  const { getRecent } = req.query;
-  try {
-    const expensesQuery = Expense.find({ userId });
+  console.log("userId", userId);
 
-    // if the request is for recent expenses, sort the expenses by createdAt and limit the results to 5
-    if (getRecent) {
-      expensesQuery.sort({ createdAt: -1 }).limit(5);
-    }
-    const expenses = await expensesQuery;
+  try {
+    const expenses = await Expense.find({ userId });
+    console.log("expenses", expenses);
+    res.status(200).json({
+      status: "success",
+      data: {
+        expenses,
+      },
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "fail",
+      message: error.message,
+    });
+  }
+};
+
+// get all expenses by budgetId
+const getAllExpensesByBudgetId = async (req, res) => {
+  // get the budgetId from the req params
+  const { budgetId } = req.params;
+
+  try {
+    const expenses = Expense.find({ budgetId });
 
     res.status(200).json({
       status: "success",
@@ -37,23 +54,35 @@ const createExpense = async (req, res) => {
   const { userId } = req;
 
   // get the name and amount from the req body, and also the current budgetId
-  const { name, amount, budgetId } = req.body;
+  const { name, expenseAmount, budgetId } = req.body;
 
   try {
     // create a new expense
-    const newExpense = await Expense.create({ name, amount, userId });
+    const newExpense = await Expense.create({
+      name,
+      expenseAmount,
+      userId,
+      budgetId,
+    });
+
+    // check if after adding the new expense, the total amount of the budget can accomodate the new expense
+    const { totalExpense, budgetAmount } = await Budget.findById(budgetId);
+
+    if (budgetAmount < totalExpense + Number(expenseAmount)) {
+      throw new Error("Can't add expense, budget amount exceeded");
+    }
 
     // update the correspoding budget
     await Budget.findByIdAndUpdate(
       budgetId,
-      { $inc: { totalExpense: amount } },
+      { $inc: { totalExpense: expenseAmount } },
       { runValidators: true }
     );
 
     // update the correspoding user
     await User.findByIdAndUpdate(
       userId,
-      { $inc: { totalExpense: amount } },
+      { $inc: { totalExpense: expenseAmount } },
       { runValidators: true }
     );
 
@@ -84,22 +113,22 @@ const deleteExpense = async (req, res) => {
 
   try {
     // find the expense's previous amount
-    const { amount } = await Expense.findById(id);
+    const { expenseAmount } = await Expense.findById(id);
 
     // delete the expense
     await Expense.findByIdAndDelete(id);
 
     // update the correspoding budget
-    await Budget.findOneAndUpdate(
+    await Budget.findByIdAndUpdate(
       budgetId,
-      { $inc: { totalExpense: -amount } },
+      { $inc: { totalExpense: -expenseAmount } },
       { runValidators: true }
     );
 
     // update the correspoding user
     await User.findByIdAndUpdate(
       userId,
-      { $inc: { totalExpense: -amount } },
+      { $inc: { totalExpense: -expenseAmount } },
       { runValidators: true }
     );
 
@@ -116,7 +145,8 @@ const deleteExpense = async (req, res) => {
 };
 
 module.exports = {
-  getAllExpenses,
+  getAllExpensesByUserId,
+  getAllExpensesByBudgetId,
   createExpense,
   deleteExpense,
 };

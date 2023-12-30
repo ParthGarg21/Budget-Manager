@@ -1,0 +1,54 @@
+.dashboard {
+  padding: 0 3rem;
+  min-height: 75vh;
+}
+
+.user-details-con {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-con {
+  font-size: 3rem;
+}
+
+.username {
+  color: var(--primary-color);
+  font-weight: 900;
+}
+
+.details-con {
+  /* border: 5px solid; */
+}
+
+.detail {
+  display: flex;
+  align-items: center;
+}
+
+.detail-title {
+  font-size: 1.5rem;
+  width: 10rem;
+  font-weight: 500;
+}
+
+.detail-value {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.budget-expense-con {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 0;
+}
+
+.expense-con {
+  display: flex;
+  align-items: center;
+  padding: 2rem 0;
+  justify-content: center;
+}

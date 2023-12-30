@@ -4,9 +4,10 @@ const budgetSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "Please enter a name"],
+    trim: true,
   },
 
-  amount: {
+  budgetAmount: {
     type: Number,
     required: [true, "Please enter a amount"],
   },

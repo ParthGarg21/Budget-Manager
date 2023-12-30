@@ -1,0 +1,10 @@
+/* footer styles */
+footer {
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+  color: var(--background-color);
+  font-size: 1.5rem;
+}

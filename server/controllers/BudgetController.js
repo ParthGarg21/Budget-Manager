@@ -48,16 +48,16 @@ const createBudget = async (req, res) => {
   const { userId } = req;
 
   // get the name and amount from the req body
-  const { name, amount } = req.body;
+  const { name, budgetAmount } = req.body;
 
   try {
     // create a new budget
-    const newBudget = await Budget.create({ name, amount, userId });
+    const newBudget = await Budget.create({ name, budgetAmount, userId });
 
     // update the correspoding user
     await User.findByIdAndUpdate(
       userId,
-      { $inc: { totalBudget: amount } },
+      { $inc: { totalBudget: budgetAmount } },
       { runValidators: true }
     );
 
@@ -84,7 +84,7 @@ const deleteBudget = async (req, res) => {
   const { id } = req.params;
   try {
     // find the budget's previous amount
-    const { amount } = await Budget.findById(id);
+    const { budgetAmount } = await Budget.findById(id);
 
     // delete the budget
     await Budget.findByIdAndDelete(id);
@@ -92,7 +92,7 @@ const deleteBudget = async (req, res) => {
     // update the correspoding user
     await User.findByIdAndUpdate(
       userId,
-      { $dec: { totalBudget: amount } },
+      { $inc: { totalBudget: -budgetAmount } },
       { runValidators: true }
     );
 
@@ -108,44 +108,9 @@ const deleteBudget = async (req, res) => {
   }
 };
 
-// update a budget
-// const updateBudget = async (req, res) => {
-//   const { userId } = req;
-//   const { id } = req.params;
-//   const updateBudget = req.body;
-//   try {
-//     const { amount: prevBudgetAmount } = await Budget.findById(id);
-
-//     const budget = await Budget.findByIdAndUpdate(id, updateBudget, {
-//       runValidators: true,
-//       new: true,
-//     });
-
-//     // remove the old budget amount and add the new budget amount to the totalBudget of the user
-//     await User.findByIdAndUpdate(
-//       userId,
-//       { $inc: { totalBudget: amount - prevBudgetAmount } },
-//       { runValidators: true }
-//     );
-
-//     res.status(200).json({
-//       status: "success",
-//       data: {
-//         budget,
-//       },
-//     });
-//   } catch (error) {
-//     res.status(400).json({
-//       status: "fail",
-//       message: error.message,
-//     });
-//   }
-// };
-
 module.exports = {
   getAllBudgets,
   getBudget,
   createBudget,
   deleteBudget,
-  //   updateBudget,
 };

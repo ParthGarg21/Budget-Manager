@@ -2,8 +2,10 @@ const jwt = require("jsonwebtoken");
 
 // authenticator middleware
 const authenticator = async (req, res, next) => {
+  console.log("inside authenticator");
   const token = req.cookies["budget-manager-token"];
   try {
+    console.log("token", token);
     // check if token exists
     if (!token) {
       throw new Error("No user is logged in");

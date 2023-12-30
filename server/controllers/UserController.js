@@ -2,19 +2,44 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
-// register a new user
-const registerUser = async (req, res) => {
-  const { username, password } = req.body;
+// get the current user
+const getCurrentUser = async (req, res) => {
+  // get the userId from the req object set using the cookies
+  const { userId } = req;
 
   try {
-    const result = await User.findOne({ username });
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new Error("User does not exist");
+    }
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        user,
+      },
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "fail",
+      message: error.message,
+    });
+  }
+};
+
+// register a new user
+const registerUser = async (req, res) => {
+  const { userName, password } = req.body;
+
+  try {
+    const result = await User.findOne({ userName });
     if (result) {
       throw new Error("User already exists");
     }
 
     // generate a hashed password
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = await User.create({ username, password: hashedPassword });
+    const newUser = await User.create({ userName, password: hashedPassword });
     res.status(201).json({
       status: "success",
       data: {
@@ -31,10 +56,10 @@ const registerUser = async (req, res) => {
 
 // login an existing user
 const loginUser = async (req, res) => {
-  const { username, password } = req.body;
+  const { userName, password } = req.body;
 
   try {
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ userName });
     if (!user) {
       throw new Error("User does not exist");
     }
@@ -74,4 +99,4 @@ const logoutUser = (req, res) => {
   });
 };
 
-module.exports = { loginUser, registerUser, logoutUser };
+module.exports = { getCurrentUser, loginUser, registerUser, logoutUser };

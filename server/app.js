@@ -16,7 +16,6 @@ const url = require("./getURL");
 
 // routers
 const userRouter = require("./routes/UserRoutes");
-const incomeRouter = require("./routes/IncomeRoutes");
 const budgetRouter = require("./routes/BudgetRoutes");
 const expenseRouter = require("./routes/ExpenseRoutes");
 
@@ -24,16 +23,16 @@ const app = express();
 
 // middleware
 app.use(express.json());
-app.use(cookieParser());
 app.use(
   cors({
     credentials: true,
+    origin: "http://localhost:3000",
   })
 );
+app.use(cookieParser());
 
 // router middleware
 app.use("/users", userRouter);
-app.use("/incomes", authenticator, incomeRouter);
 app.use("/budgets", authenticator, budgetRouter);
 app.use("/expenses", authenticator, expenseRouter);
 

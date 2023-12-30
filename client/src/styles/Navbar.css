@@ -1,0 +1,58 @@
+/* nav styles */
+nav {
+  padding: 0 3rem;
+  display: flex;
+  height: 15vh;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-home-con {
+  background-color: var(--background-color);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border: 0;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+  border: 5px solid transparent;
+  position: relative;
+  text-decoration: none;
+  color: black;
+}
+
+.nav-home-con:hover {
+  border-color: var(--primary-color);
+}
+
+.logo-icon {
+  height: 2.5rem;
+}
+
+.logo-title {
+  font-size: 2rem;
+}
+
+.logout-btn {
+  padding: 0.5rem;
+  background-color: var(--background-color);
+  border: 0;
+  padding: 0.5rem 1rem;
+  font-size: 1.125rem;
+  color: #df6b62;
+  display: flex;
+  align-items: center;
+  border: 3px solid;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+  background-color: #f4eded;
+}
+
+.logout-btn:hover {
+  color: var(--background-color);
+  background-color: #df6b62;
+  border-color: #df6b62;
+}

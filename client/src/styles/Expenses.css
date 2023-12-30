@@ -1,0 +1,70 @@
+.expenses {
+  padding: 0 3rem;
+}
+
+.expense-table-con {
+  padding: 1rem;
+  background-color: #fff;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  margin: 2rem 0;
+}
+
+.expense-table {
+  width: 100%;
+  border-collapse: separate;
+  background-color: white;
+  border-radius: 1rem;
+  border: 3px dashed black;
+}
+
+.expense-table th {
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+.expense-table td {
+  font-size: 1.125rem;
+  font-weight: 400;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+.expense-table tr:nth-child(even) {
+  background-color: #f7fcfd;
+  color: var(--white-color);
+}
+
+.expense-table tr:last-child td:first-child {
+  border-bottom-left-radius: 1rem;
+}
+
+.expense-table tr:last-child td:last-child {
+  border-bottom-right-radius: 1rem;
+}
+
+.delete-btn {
+  padding: 0.5rem;
+  background-color: var(--background-color);
+  border: 0;
+  padding: 0.5rem 1rem;
+  font-size: 1.125rem;
+  display: flex;
+  align-items: center;
+  border: 3px solid;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+  color: #f4eded;
+  background-color: #dc3545;
+  border-color: #dc3545;
+  margin: auto;
+}
+
+.delete-btn:hover {
+  background-color: #c62e3e;
+  border-color: #c62e3e;
+  color: var(--background-color);
+}
