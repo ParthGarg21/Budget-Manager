@@ -1,11 +1,22 @@
-import { useContext, useEffect, useState } from "react";
-import { userContext } from "../contexts/UserContext";
+// styles
 import "../styles/Dashboard.css";
-import useCheckIsLogin from "../custom hooks/useCheckIsLogin";
+
+// components
 import BudgetForm from "./BudgetForm";
 import ExpenseForm from "./ExpenseForm";
 import Budgets from "./Budgets";
 import ExpenseTable from "./ExpenseTable";
+import LoadingCon from "./LoadingCon";
+import getRecentExpenses from "../utils/getRecentExpenses";
+
+// contexts
+import { userContext } from "../contexts/UserContext";
+
+// react
+import useCheckIsLogin from "../custom hooks/useCheckIsLogin";
+
+// custom hooks
+import { useContext, useState } from "react";
 
 /**
  * user has the following structure
@@ -18,16 +29,14 @@ import ExpenseTable from "./ExpenseTable";
  *
  */
 
-const getRecentExpenses = (expenses) => {
-  const totalExpenses = expenses.length;
-
-  return totalExpenses <= 10
-    ? expenses
-    : expenses.slice(totalExpenses - 10, totalExpenses);
-};
-
 const DashBoard = () => {
   const [loading, setLoading] = useState(true);
+
+  /**
+   * check if the user is already logged in
+   * if logged in then set the states
+   * else redirect to home page and show the login and signup form
+   */
   useCheckIsLogin(setLoading, "/");
 
   const { user, expenses } = useContext(userContext);
@@ -36,7 +45,9 @@ const DashBoard = () => {
     <>
       <section className="dashboard">
         {loading ? (
-          <h1>Loading...</h1>
+          <div className="page-loader">
+            <LoadingCon />
+          </div>
         ) : (
           <>
             <div className="user-details-con">
@@ -62,11 +73,11 @@ const DashBoard = () => {
                 <ExpenseForm />
               </div>
             </div>
+            <Budgets />
+            <ExpenseTable expenses={getRecentExpenses(expenses)} onlyRecent />
           </>
         )}
       </section>
-      <Budgets />
-      <ExpenseTable expenses={getRecentExpenses(expenses)} onlyRecent />
     </>
   );
 };

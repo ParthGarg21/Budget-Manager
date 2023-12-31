@@ -35,18 +35,25 @@ nav {
   font-size: 2rem;
 }
 
-.logout-btn {
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.logout-btn,
+.dashboard-btn {
   padding: 0.5rem;
-  background-color: var(--background-color);
   border: 0;
   padding: 0.5rem 1rem;
   font-size: 1.125rem;
-  display: flex;
-  align-items: center;
   border: 3px solid;
   cursor: pointer;
-  border-radius: 0.5rem;
+  border-radius: 0.25rem;
   transition: all 0.2s;
+}
+
+.logout-btn {
   color: #f4eded;
   background-color: #dc3545;
   border-color: #dc3545;
@@ -55,5 +62,15 @@ nav {
 .logout-btn:hover {
   background-color: #c62e3e;
   border-color: #c62e3e;
+}
+
+.dashboard-btn {
   color: var(--background-color);
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.dashboard-btn:hover {
+  background-color: var(--primary-color-dark);
+  border-color: var(--primary-color-dark);
 }

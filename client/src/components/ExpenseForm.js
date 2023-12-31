@@ -1,6 +1,10 @@
-import { useContext } from "react";
 import "../styles/Amountform.css";
+
+// contexts
 import { userContext } from "../contexts/UserContext";
+
+// react
+import { useContext } from "react";
 import { useState } from "react";
 
 const ExpenseForm = () => {
@@ -23,6 +27,12 @@ const ExpenseForm = () => {
   const handleBudgetIdChange = (e) => {
     setBudgetId(e.target.value);
   };
+
+  /**
+   * update the totalExpense in the user context after creating a new expense
+   * and also store the same in the backend
+   * to create a new expense make a post request to server
+   */
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,10 +59,12 @@ const ExpenseForm = () => {
 
     const newAmount = user.totalExpense + parseInt(expenseAmount);
 
+    // update the totalExpense in the user context
     setUser((prev) => ({
       ...prev,
       totalExpense: newAmount,
     }));
+    // update the budgets
     setBudgets((budgets) =>
       budgets.map((budget) => {
         if (budget._id === budgetId) {
@@ -64,7 +76,9 @@ const ExpenseForm = () => {
         return budget;
       })
     );
+    // update the expenses
     setExpenses((prev) => [...prev, data.expense]);
+    // reset the form
     setName("");
     setExpenseAmount(0);
     setBudgetId(-1);

@@ -1,12 +1,18 @@
+// styles
 import "./styles/App.css";
+
+// components
 import Footer from "./components/Footer";
 import Home from "./components/Home";
 import NavBar from "./components/NavBar";
-
-import { FormProvider } from "./contexts/FormContext";
-import { Route, Routes } from "react-router-dom";
 import DashBoard from "./components/DashBoard";
 import BudgetDetails from "./components/BudgetDetails";
+
+// contexts
+import { FormProvider } from "./contexts/FormContext";
+
+// react
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   return (

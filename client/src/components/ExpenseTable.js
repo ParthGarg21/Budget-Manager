@@ -1,17 +1,22 @@
-import { Fragment } from "react";
+// styles
 import "../styles/Expenses.css";
+
+// components
 import ExpenseRow from "./ExpenseRow";
 
+// react
+import { Fragment } from "react";
+
+// utils
+import getSortedExpenses from "../utils/getSortedExpenses";
+
 const ExpenseTable = ({ expenses, onlyRecent }) => {
-  const sortedExpenses = expenses.sort((a, b) => {
-    const aDate = new Date(a.createdAt);
-    const bDate = new Date(b.createdAt);
+  // sort the expenses by date
+  const sortedExpenses = getSortedExpenses(expenses);
 
-    return bDate - aDate;
-  });
-
+  // render the table
   return (
-    sortedExpenses.length > 0 && (
+    sortedExpenses?.length > 0 && (
       <section className="expenses">
         <h1>{onlyRecent ? "Recent " : ""}Expenses</h1>
         <div className="expense-table-con">

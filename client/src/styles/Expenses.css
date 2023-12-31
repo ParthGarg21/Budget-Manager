@@ -1,5 +1,5 @@
 .expenses {
-  padding: 0 3rem;
+  /* padding: 0 3rem; */
 }
 
 .expense-table-con {
@@ -55,7 +55,7 @@
   align-items: center;
   border: 3px solid;
   cursor: pointer;
-  border-radius: 0.5rem;
+  border-radius: 0.25rem;
   transition: all 0.2s;
   color: #f4eded;
   background-color: #dc3545;

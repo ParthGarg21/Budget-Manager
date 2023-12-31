@@ -1,13 +1,18 @@
-import { useState, useContext } from "react";
+// styles
 import "../styles/Form.css";
+
+// contexts
 import { formContext } from "../contexts/FormContext";
 import { userContext } from "../contexts/UserContext";
+
+// react
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const { setIsLogin } = useContext(formContext);
 
+  const { setIsLogin } = useContext(formContext);
   const { setUser } = useContext(userContext);
   const [showPassword, setShowPassword] = useState(false);
   const [userName, setUserName] = useState("");
@@ -18,6 +23,10 @@ const LoginForm = () => {
     setShowPassword(!showPassword);
   };
 
+  const toggelFormState = () => {
+    setIsLogin(false);
+  };
+
   const handleUserName = (e) => {
     setUserName(e.target.value.trim());
   };
@@ -26,13 +35,17 @@ const LoginForm = () => {
     setPassword(e.target.value.trim());
   };
 
+  /**
+   * When a user logs in, set the current user to the user object returned by the server.
+   * For logging in, a post request is made to the server with the user credentials.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(userName, password);
     if (password === "" || userName === "") {
       setErr("Please fill all the fields");
       return;
     }
+
     const userData = { userName, password };
 
     const res = await fetch("http://localhost:8000/users/login", {
@@ -45,14 +58,14 @@ const LoginForm = () => {
     });
 
     const { message, data } = await res.json();
+
+    // if the user credentials are wrong then show the error message
     if (!res.ok) {
       setErr(message);
       return;
     }
 
-    setPassword("");
-    setUserName("");
-    setErr("");
+    // set the user and navigate to the dashboard
     setUser(data.user);
     navigate("/dashboard");
   };
@@ -97,12 +110,7 @@ const LoginForm = () => {
       </form>
       <div className="form-change">
         <p>Don't have an account yet? </p>
-        <button
-          className="form-change-btn"
-          onClick={() => {
-            setIsLogin(false);
-          }}
-        >
+        <button className="form-change-btn" onClick={toggelFormState}>
           Signup
         </button>
       </div>

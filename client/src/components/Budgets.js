@@ -1,9 +1,19 @@
-import { Fragment, useContext } from "react";
-import { userContext } from "../contexts/UserContext";
-import generatePrettyColor from "../utils/generatePrettyColor";
-import BudgetCard from "./BudgetCard";
+// styles
 import "../styles/Budgets.css";
 
+// components
+import BudgetCard from "./BudgetCard";
+
+// contexts
+import { userContext } from "../contexts/UserContext";
+
+// react
+import { Fragment, useContext } from "react";
+
+// utils
+import generatePrettyColor from "../utils/generatePrettyColor";
+
+// render all the budgets
 const Budgets = () => {
   const { budgets } = useContext(userContext);
 

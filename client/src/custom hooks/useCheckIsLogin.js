@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { userContext } from "../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import fetchBudgets from "../utils/fetchBudgets";
-import { fetchExpensesByUserId } from "../utils/fetchExpenses";
+import fetchExpenses from "../utils/fetchExpenses";
 
 // hook which checks if user is logged in or not by making a get request to server
 // also, fetch all the expnese and budgets of the user
@@ -24,7 +24,7 @@ const useCheckIsLogin = async (setLoading, route) => {
       // get all the expenses and budgets of the user
       // use promise.all to get the results
       const [expenses, budgets] = await Promise.all([
-        fetchExpensesByUserId(),
+        fetchExpenses(),
         fetchBudgets(),
       ]);
 
@@ -32,6 +32,10 @@ const useCheckIsLogin = async (setLoading, route) => {
       setUser(data.user);
       setExpenses(expenses);
       setBudgets(budgets);
+
+      console.log("user", data.user);
+      console.log("expenses", expenses);
+      console.log("budgets", budgets);
 
       if (route === "/dashboard") {
         navigate(route);

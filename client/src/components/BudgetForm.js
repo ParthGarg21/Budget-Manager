@@ -1,7 +1,12 @@
-import { useState } from "react";
+// styles
 import "../styles/Amountform.css";
-import { useContext } from "react";
+
+// contexts
 import { userContext } from "../contexts/UserContext";
+
+// react
+import { useState } from "react";
+import { useContext } from "react";
 
 const BudgetForm = () => {
   const { user, setUser, setBudgets } = useContext(userContext);
@@ -20,16 +25,17 @@ const BudgetForm = () => {
 
   /**
    *
-   * update the totalBudget in the user context
-   * and also store the same in the backend db
+   * update the totalBudget in the user context after creating a new budget
+   * and also store the same in the backend
+   * to create a new budget make a post request to server
    */
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (name === "" || amount === 0) {
       setError("Please fill all the fields");
       return;
     }
+
     const url = `http://localhost:8000/budgets`;
     const body = { name, budgetAmount: amount };
 
@@ -44,15 +50,20 @@ const BudgetForm = () => {
 
     const { message, data } = await res.json();
 
+    // if response is ok then update the states
     if (res.ok) {
       const newAmount = user.totalBudget + parseInt(amount);
 
+      // update the totalBudget in the user context
       setUser((prev) => ({
         ...prev,
         totalBudget: newAmount,
       }));
 
+      // update the budgets
       setBudgets((prev) => [...prev, data.budget]);
+
+      // reset the form
       setName("");
       setAmount(0);
       setError("");

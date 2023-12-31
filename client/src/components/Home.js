@@ -1,16 +1,32 @@
-import homeImage from "../images/home-image.jpg";
+// styles
 import "../styles/Home.css";
-import LoginForm from "./LoginForm";
 
-import { formContext } from "../contexts/FormContext";
-import { useContext, useState } from "react";
+// images
+import homeImage from "../images/home-image.jpg";
+
+// components
+import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
+
+// contexts
+import { formContext } from "../contexts/FormContext";
+
+// react
+import { useContext, useState } from "react";
+
+// custom hooks
 import useCheckIsLogin from "../custom hooks/useCheckIsLogin";
-import { BarLoader } from "react-spinners";
+import LoadingCon from "./LoadingCon";
 
 const Home = () => {
   const [loading, setLoading] = useState(true);
   const { isLogin } = useContext(formContext);
+
+  /**
+   * check if the user is already logged in
+   * if logged in then set the states and redirect to dashboard
+   * else show the login and signup form
+   */
   useCheckIsLogin(setLoading, "/dashboard");
 
   return (
@@ -27,18 +43,7 @@ const Home = () => {
         </p>
 
         <div className="form-con">
-          {loading ? (
-            <>
-              <h1>Loading...</h1>
-              <p>
-              <BarLoader color="black" width={150} />
-              </p>
-            </>
-          ) : isLogin ? (
-            <LoginForm />
-          ) : (
-            <SignupForm />
-          )}
+          {loading ? <LoadingCon /> : isLogin ? <LoginForm /> : <SignupForm />}
         </div>
       </div>
       <div className="home-image-con">

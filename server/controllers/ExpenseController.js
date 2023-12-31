@@ -3,15 +3,12 @@ const Budget = require("../models/Budget");
 const User = require("../models/User");
 
 // get all expenses
-const getAllExpensesByUserId = async (req, res) => {
+const getAllExpenses = async (req, res) => {
   // get the userId from the req object set using the cookies
   const { userId } = req;
 
-  console.log("userId", userId);
-
   try {
     const expenses = await Expense.find({ userId });
-    console.log("expenses", expenses);
     res.status(200).json({
       status: "success",
       data: {
@@ -123,7 +120,7 @@ const deleteExpense = async (req, res) => {
 };
 
 module.exports = {
-  getAllExpensesByUserId,
+  getAllExpenses,
   createExpense,
   deleteExpense,
 };

@@ -5,6 +5,7 @@ const budgetSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter a name"],
     trim: true,
+    lowercase: true,
   },
 
   budgetAmount: {

@@ -1,7 +1,10 @@
+// react
 import { createContext, useState } from "react";
-
 const formContext = createContext();
 
+/**
+ * context used to toggle between login and signup form
+ */
 const FormProvider = ({ children }) => {
   const [isLogin, setIsLogin] = useState(true);
 

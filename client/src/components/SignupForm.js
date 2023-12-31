@@ -1,6 +1,11 @@
-import { useState, useContext } from "react";
+// styles
 import "../styles/Form.css";
+
+// contexts
 import { formContext } from "../contexts/FormContext";
+
+// react
+import { useState, useContext } from "react";
 
 const SignupForm = () => {
   const { setIsLogin } = useContext(formContext);
@@ -9,7 +14,6 @@ const SignupForm = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [err, setErr] = useState("");
-
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -25,6 +29,10 @@ const SignupForm = () => {
     setConfirmPassword(e.target.value.trim());
   };
 
+  const toggleFormState = () => {
+    setIsLogin(true);
+  };
+
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -32,6 +40,12 @@ const SignupForm = () => {
   const toggleShowConfirmPassword = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
+
+  /**
+   *
+   * When a user signs up, set the current user to the user object returned by the server.
+   * For signing up, a post request is made to the server with the user credentials.
+   */
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -57,9 +71,7 @@ const SignupForm = () => {
       return;
     }
 
-    setPassword("");
-    setUserName("");
-    setConfirmPassword("");
+    // register and go back to the user login page
     setIsLogin(true);
   };
 
@@ -122,12 +134,7 @@ const SignupForm = () => {
       </form>
       <div className="form-change">
         <p>Already have an account? </p>
-        <button
-          className="form-change-btn"
-          onClick={() => {
-            setIsLogin(true);
-          }}
-        >
+        <button className="form-change-btn" onClick={toggleFormState}>
           Login
         </button>
       </div>

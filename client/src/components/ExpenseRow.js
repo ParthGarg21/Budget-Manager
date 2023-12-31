@@ -1,24 +1,19 @@
-import { useContext } from "react";
+// contexts
 import { userContext } from "../contexts/UserContext";
 
-const getDate = (date) => {
-  const formattedDate = new Date(date).toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "2-digit",
-  });
+// react
+import { useContext } from "react";
 
-  const formattedTime = new Date(date).toLocaleTimeString("en-GB", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-
-  return `${formattedDate} ${formattedTime}`;
-};
+// utils
+import getDate from "../utils/getDate";
 
 const ExpenseRow = ({ expense }) => {
   const { setExpenses, setBudgets, setUser } = useContext(userContext);
 
+  /**
+   * delete the expense from the database and update the state
+   * to delete, make a delete request to server for the expense id
+   */
   const handleDelete = async () => {
     await fetch(`http://localhost:8000/expenses/${expense._id}`, {
       method: "DELETE",
@@ -29,7 +24,10 @@ const ExpenseRow = ({ expense }) => {
       credentials: "include",
     });
 
+    // update the expenses state
     setExpenses((prev) => prev.filter((exp) => exp._id !== expense._id));
+
+    // update the budgets state
     setBudgets((prev) =>
       prev.map((budget) => {
         if (budget._id === expense.budgetId) {
@@ -41,6 +39,8 @@ const ExpenseRow = ({ expense }) => {
         return budget;
       })
     );
+
+    // update the user state
     setUser((prev) => ({
       ...prev,
       totalExpense: prev.totalExpense - expense.expenseAmount,

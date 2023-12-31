@@ -1,15 +1,13 @@
 const express = require("express");
 const {
-  getAllExpensesByUserId,
+  getAllExpenses,
   createExpense,
   deleteExpense,
 } = require("../controllers/ExpenseController");
 
 const router = express.Router();
 
-router.route("/").post(createExpense);
-
-router.route("/user").get(getAllExpensesByUserId);
+router.route("/").post(createExpense).get(getAllExpenses)
 
 router.route("/:id").delete(deleteExpense);
 

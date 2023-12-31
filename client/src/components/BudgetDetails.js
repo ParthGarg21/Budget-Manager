@@ -7,6 +7,7 @@ import useCheckIsLogin from "../custom hooks/useCheckIsLogin";
 import BudgetCard from "./BudgetCard";
 import SpecificBudgetForm from "./SpecificBudgetForm";
 import ExpenseTable from "./ExpenseTable";
+import capitalize from "../utils/capitalize";
 
 /**
  * budget has the following properties:
@@ -17,11 +18,6 @@ import ExpenseTable from "./ExpenseTable";
  * userId: String,
  * }
  */
-
-const capitalize = (str) => {
-  return str[0].toUpperCase() + str.slice(1);
-};
-
 const BudgetDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();

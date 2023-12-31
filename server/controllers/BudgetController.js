@@ -51,6 +51,11 @@ const createBudget = async (req, res) => {
   const { name, budgetAmount } = req.body;
 
   try {
+    const result = await Budget.findOne({ userId, name });
+    if (result) {
+      throw new Error("Budget already exists");
+    }
+
     // create a new budget
     const newBudget = await Budget.create({ name, budgetAmount, userId });
 

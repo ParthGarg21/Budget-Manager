@@ -1,13 +1,28 @@
-import { Link } from "react-router-dom";
-import logo from "../images/logomark.svg";
+// styles
 import "../styles/Navbar.css";
+
+// images
+import logo from "../images/logomark.svg";
+
+// contexts
 import { userContext } from "../contexts/UserContext";
+
+// react
+import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
   const navigate = useNavigate();
   const { user, setUser } = useContext(userContext);
+
+  /**
+   * logout the user by making a get request to the server
+   */
+
+  const handleDashboard = async () => {
+    navigate("/dashboard");
+  };
 
   const handleLogOut = async () => {
     const res = await fetch("http://localhost:8000/users/logout", {
@@ -28,9 +43,15 @@ const NavBar = () => {
       </Link>
 
       {user && (
-        <button className="logout-btn" onClick={handleLogOut}>
-          Logout
-        </button>
+        <div className="nav-links">
+          <Link to="/dashboard">
+            <button className="dashboard-btn">Dashboard</button>
+          </Link>
+
+          <button className="logout-btn" onClick={handleLogOut}>
+            Logout
+          </button>
+        </div>
       )}
     </nav>
   );
