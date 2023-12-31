@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: "https://budget-manager-2lwb.onrender.com",
+    origin: "https://my-budget-manager-app.netlify.app/",
   })
 );
 app.use(cookieParser());
