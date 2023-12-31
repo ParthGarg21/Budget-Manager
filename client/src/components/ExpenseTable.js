@@ -1,24 +1,19 @@
-import { Fragment, useContext } from "react";
-import { userContext } from "../contexts/UserContext";
+import { Fragment } from "react";
 import "../styles/Expenses.css";
 import ExpenseRow from "./ExpenseRow";
 
-const RecentExpenses = () => {
-  const { expenses } =
-    useContext(userContext);
+const ExpenseTable = ({ expenses, onlyRecent }) => {
+  const sortedExpenses = expenses.sort((a, b) => {
+    const aDate = new Date(a.createdAt);
+    const bDate = new Date(b.createdAt);
 
-  const totalExpenses = expenses.length;
+    return bDate - aDate;
+  });
 
-  const recentExpenses =
-    totalExpenses <= 10
-      ? expenses
-      : expenses.slice(totalExpenses - 10, totalExpenses);
-
- 
   return (
-    expenses && (
+    sortedExpenses.length > 0 && (
       <section className="expenses">
-        <h1>Recent Expenses</h1>
+        <h1>{onlyRecent ? "Recent " : ""}Expenses</h1>
         <div className="expense-table-con">
           <table className="expense-table">
             <thead>
@@ -30,7 +25,7 @@ const RecentExpenses = () => {
               </tr>
             </thead>
             <tbody>
-              {recentExpenses.map((expense) => (
+              {sortedExpenses.map((expense) => (
                 <Fragment key={expense._id}>
                   <ExpenseRow expense={expense} />
                 </Fragment>
@@ -43,4 +38,4 @@ const RecentExpenses = () => {
   );
 };
 
-export default RecentExpenses;
+export default ExpenseTable;

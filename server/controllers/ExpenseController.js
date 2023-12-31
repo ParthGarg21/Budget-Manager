@@ -26,28 +26,6 @@ const getAllExpensesByUserId = async (req, res) => {
   }
 };
 
-// get all expenses by budgetId
-const getAllExpensesByBudgetId = async (req, res) => {
-  // get the budgetId from the req params
-  const { budgetId } = req.params;
-
-  try {
-    const expenses = Expense.find({ budgetId });
-
-    res.status(200).json({
-      status: "success",
-      data: {
-        expenses,
-      },
-    });
-  } catch (error) {
-    res.status(400).json({
-      status: "fail",
-      message: error.message,
-    });
-  }
-};
-
 // create a new expense
 const createExpense = async (req, res) => {
   // get the userId from the req object set using the cookies
@@ -146,7 +124,6 @@ const deleteExpense = async (req, res) => {
 
 module.exports = {
   getAllExpensesByUserId,
-  getAllExpensesByBudgetId,
   createExpense,
   deleteExpense,
 };

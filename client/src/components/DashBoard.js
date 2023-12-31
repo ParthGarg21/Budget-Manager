@@ -5,7 +5,7 @@ import useCheckIsLogin from "../custom hooks/useCheckIsLogin";
 import BudgetForm from "./BudgetForm";
 import ExpenseForm from "./ExpenseForm";
 import Budgets from "./Budgets";
-import RecentExpenses from "./RecentExpenses";
+import ExpenseTable from "./ExpenseTable";
 
 /**
  * user has the following structure
@@ -18,16 +18,19 @@ import RecentExpenses from "./RecentExpenses";
  *
  */
 
+const getRecentExpenses = (expenses) => {
+  const totalExpenses = expenses.length;
+
+  return totalExpenses <= 10
+    ? expenses
+    : expenses.slice(totalExpenses - 10, totalExpenses);
+};
+
 const DashBoard = () => {
   const [loading, setLoading] = useState(true);
   useCheckIsLogin(setLoading, "/");
 
-  const data = useContext(userContext);
-  const { user } = data;
-
-  useEffect(() => {
-    console.log(data);
-  });
+  const { user, expenses } = useContext(userContext);
 
   return (
     <>
@@ -63,7 +66,7 @@ const DashBoard = () => {
         )}
       </section>
       <Budgets />
-      <RecentExpenses />
+      <ExpenseTable expenses={getRecentExpenses(expenses)} onlyRecent />
     </>
   );
 };
