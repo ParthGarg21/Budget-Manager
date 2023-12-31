@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { userContext } from "../contexts/UserContext";
+import serverOrigin from "../utils/getOrigin";
 
 const SpecificBudgetForm = ({ budget }) => {
   const [name, setName] = useState("");
@@ -25,7 +26,7 @@ const SpecificBudgetForm = ({ budget }) => {
       return;
     }
 
-    const res = await fetch(`http://localhost:8000/expenses`, {
+    const res = await fetch(`${serverOrigin}/expenses`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

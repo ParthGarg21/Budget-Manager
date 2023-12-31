@@ -8,6 +8,7 @@ import { userContext } from "../contexts/UserContext";
 // react
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import serverOrigin from "../utils/getOrigin";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ const LoginForm = () => {
 
     const userData = { userName, password };
 
-    const res = await fetch(`http://localhost:8000/users/login`, {
+    const res = await fetch(`${serverOrigin}/users/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

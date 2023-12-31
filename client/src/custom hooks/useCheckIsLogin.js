@@ -3,6 +3,7 @@ import { userContext } from "../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import fetchBudgets from "../utils/fetchBudgets";
 import fetchExpenses from "../utils/fetchExpenses";
+import serverOrigin from "../utils/getOrigin";
 
 // hook which checks if user is logged in or not by making a get request to server
 // also, fetch all the expnese and budgets of the user
@@ -13,7 +14,7 @@ const useCheckIsLogin = async (setLoading, route) => {
   const { setUser, setExpenses, setBudgets } = useContext(userContext);
 
   const checkIsLogin = async () => {
-    const res = await fetch(`http://localhost:8000/users/current-user`, {
+    const res = await fetch(`${serverOrigin}/users/current-user`, {
       method: "GET",
       credentials: "include",
     });

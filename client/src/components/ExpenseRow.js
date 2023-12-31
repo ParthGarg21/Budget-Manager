@@ -6,6 +6,7 @@ import { useContext } from "react";
 
 // utils
 import getDate from "../utils/getDate";
+import serverOrigin from "../utils/getOrigin";
 
 const ExpenseRow = ({ expense }) => {
   const { setExpenses, setBudgets, setUser } = useContext(userContext);
@@ -15,7 +16,7 @@ const ExpenseRow = ({ expense }) => {
    * to delete, make a delete request to server for the expense id
    */
   const handleDelete = async () => {
-    await fetch(`http://localhost:8000/expenses/${expense._id}`, {
+    await fetch(`${serverOrigin}/expenses/${expense._id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

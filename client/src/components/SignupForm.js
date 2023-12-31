@@ -6,6 +6,7 @@ import { formContext } from "../contexts/FormContext";
 
 // react
 import { useState, useContext } from "react";
+import serverOrigin from "../utils/getOrigin";
 
 const SignupForm = () => {
   const { setIsLogin } = useContext(formContext);
@@ -56,7 +57,7 @@ const SignupForm = () => {
 
     const userData = { userName, password };
 
-    const res = await fetch(`http://localhost:8000/users/register`, {
+    const res = await fetch(`${serverOrigin}/users/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

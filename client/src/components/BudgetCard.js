@@ -4,6 +4,8 @@ import ProgressBar from "@ramonak/react-progress-bar";
 // react
 import { Link, useNavigate } from "react-router-dom";
 
+import serverOrigin from "../utils/getOrigin";
+
 // render budget card
 const BudgetCard = ({ budget, color, isDetail }) => {
   const completed = Math.trunc(
@@ -15,7 +17,7 @@ const BudgetCard = ({ budget, color, isDetail }) => {
   // delete budget from the database and redirect to dashboard
   const handleDelete = async () => {
     const id = budget._id;
-    const res = await fetch(`http://localhost:8000/budgets/${id}`, {
+    const res = await fetch(`${serverOrigin}/budgets/${id}`, {
       method: "DELETE",
       credentials: "include",
     });

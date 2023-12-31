@@ -11,6 +11,7 @@ import { userContext } from "../contexts/UserContext";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import serverOrigin from "../utils/getOrigin";
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const NavBar = () => {
   };
 
   const handleLogOut = async () => {
-    const res = await fetch(`http://localhost:8000/users/logout`, {
+    const res = await fetch(`${serverOrigin}/users/logout`, {
       method: "GET",
       credentials: "include",
     });

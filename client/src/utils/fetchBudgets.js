@@ -1,5 +1,7 @@
+import serverOrigin from "./getOrigin";
+
 const fetchBudgets = async () => {
-  const res = await fetch(`http://localhost:8000/budgets`, {
+  const res = await fetch(`${serverOrigin}/budgets`, {
     method: "GET",
     credentials: "include",
   });

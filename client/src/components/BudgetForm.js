@@ -8,6 +8,8 @@ import { userContext } from "../contexts/UserContext";
 import { useState } from "react";
 import { useContext } from "react";
 
+import serverOrigin from "../utils/getOrigin";
+
 const BudgetForm = () => {
   const { user, setUser, setBudgets } = useContext(userContext);
   const [name, setName] = useState("");
@@ -36,7 +38,7 @@ const BudgetForm = () => {
       return;
     }
 
-    const url = `http://localhost:8000/budgets`;
+    const url = `${serverOrigin}/budgets`;
     const body = { name, budgetAmount: amount };
 
     const res = await fetch(url, {
