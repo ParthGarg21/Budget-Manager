@@ -38,7 +38,7 @@ const BudgetForm = () => {
       return;
     }
 
-    const url = `${serverOrigin}/budgets`;
+    const url = `https://budget-app-server-1s1n.onrender.com/budgets`;
     const body = { name, budgetAmount: amount };
 
     const res = await fetch(url, {

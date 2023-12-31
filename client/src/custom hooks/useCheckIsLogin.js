@@ -14,7 +14,8 @@ const useCheckIsLogin = async (setLoading, route) => {
   const { setUser, setExpenses, setBudgets } = useContext(userContext);
 
   const checkIsLogin = async () => {
-    const res = await fetch(`${serverOrigin}/users/current-user`, {
+    console.log(`https://budget-app-server-1s1n.onrender.com/users/current-user`);
+    const res = await fetch(`https://budget-app-server-1s1n.onrender.com/users/current-user`, {
       method: "GET",
       credentials: "include",
     });

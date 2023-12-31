@@ -57,7 +57,7 @@ const SignupForm = () => {
 
     const userData = { userName, password };
 
-    const res = await fetch(`${serverOrigin}/users/register`, {
+    const res = await fetch(`https://budget-app-server-1s1n.onrender.com/users/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

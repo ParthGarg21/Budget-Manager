@@ -26,7 +26,7 @@ const NavBar = () => {
   };
 
   const handleLogOut = async () => {
-    const res = await fetch(`${serverOrigin}/users/logout`, {
+    const res = await fetch(`https://budget-app-server-1s1n.onrender.com/users/logout`, {
       method: "GET",
       credentials: "include",
     });
