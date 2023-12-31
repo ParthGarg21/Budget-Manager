@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: "http://localhost:3000",
+    origin: "https://budget-manager-2lwb.onrender.com",
   })
 );
 app.use(cookieParser());
