@@ -1,3 +1,3 @@
-const serverOrigin = "https://budget-app-server-1s1n.onrender.com";
+const serverOrigin = "http://localhost:8000";
 
 export default serverOrigin;

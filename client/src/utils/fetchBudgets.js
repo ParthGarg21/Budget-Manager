@@ -1,7 +1,7 @@
 import serverOrigin from "./getOrigin";
 
 const fetchBudgets = async () => {
-  const res = await fetch(`https://budget-app-server-1s1n.onrender.com/budgets`, {
+  const res = await fetch(`http://localhost:8000/budgets`, {
     method: "GET",
     credentials: "include",
   });

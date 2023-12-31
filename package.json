@@ -8,7 +8,9 @@
     "start-server": "cd server && npm start",
     "install-client": "cd client && npm install",
     "build-client": "cd client && npm run build",
-    "start-client": "cd client && npm start"
+    "start-client": "cd client && npm start",
+    "install": "npm run install-server && npm run install-client",
+    "start": "npm run start-server && npm run start-client",
   },
   "author": "Parth Garg",
   "license": "ISC"

@@ -16,7 +16,7 @@ const ExpenseRow = ({ expense }) => {
    * to delete, make a delete request to server for the expense id
    */
   const handleDelete = async () => {
-    await fetch(`https://budget-app-server-1s1n.onrender.com/expenses/${expense._id}`, {
+    await fetch(`http://localhost:8000/expenses/${expense._id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
