@@ -1,8 +1,6 @@
 // edit the environment variables from config.env file
 const dotenv = require("dotenv");
-dotenv.config({
-  path: "./config.env",
-});
+dotenv.config();
 
 // npm packages
 const express = require("express");

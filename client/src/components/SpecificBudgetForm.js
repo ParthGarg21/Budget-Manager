@@ -25,7 +25,7 @@ const SpecificBudgetForm = ({ budget }) => {
       return;
     }
 
-    const res = await fetch("http://localhost:8000/expenses", {
+    const res = await fetch(`http://localhost:8000/expenses`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -1,5 +1,5 @@
 const fetchExpenses = async () => {
-  const res = await fetch("http://localhost:8000/expenses", {
+  const res = await fetch(`http://localhost:8000/expenses`, {
     method: "GET",
     credentials: "include",
   });

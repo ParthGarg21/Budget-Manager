@@ -13,7 +13,7 @@ const useCheckIsLogin = async (setLoading, route) => {
   const { setUser, setExpenses, setBudgets } = useContext(userContext);
 
   const checkIsLogin = async () => {
-    const res = await fetch("http://localhost:8000/users/current-user", {
+    const res = await fetch(`http://localhost:8000/users/current-user`, {
       method: "GET",
       credentials: "include",
     });
