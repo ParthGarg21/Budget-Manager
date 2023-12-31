@@ -33,10 +33,6 @@ const useCheckIsLogin = async (setLoading, route) => {
       setExpenses(expenses);
       setBudgets(budgets);
 
-      console.log("user", data.user);
-      console.log("expenses", expenses);
-      console.log("budgets", budgets);
-
       if (route === "/dashboard") {
         navigate(route);
       }
