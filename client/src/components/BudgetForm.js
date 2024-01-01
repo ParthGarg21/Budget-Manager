@@ -39,7 +39,11 @@ const BudgetForm = () => {
     }
 
     const url = `http://localhost:8000/budgets`;
-    const body = { name, budgetAmount: amount };
+    const body = {
+      name,
+      budgetAmount: amount,
+      token: localStorage.getItem("token"),
+    };
 
     const res = await fetch(url, {
       method: "POST",

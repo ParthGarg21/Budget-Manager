@@ -19,7 +19,11 @@ const BudgetCard = ({ budget, color, isDetail }) => {
     const id = budget._id;
     const res = await fetch(`http://localhost:8000/budgets/${id}`, {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
       credentials: "include",
+      body: JSON.stringify({ token: localStorage.getItem("token") }),
     });
 
     if (!res.ok) {

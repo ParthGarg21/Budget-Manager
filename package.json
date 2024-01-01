@@ -10,7 +10,7 @@
     "build-client": "cd client && npm run build",
     "start-client": "cd client && npm start",
     "install": "npm run install-server && npm run install-client",
-    "start": "npm run start-server && npm run start-client",
+    "start": "npm run start-server && npm run start-client"
   },
   "author": "Parth Garg",
   "license": "ISC"

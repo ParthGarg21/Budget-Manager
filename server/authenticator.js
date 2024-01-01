@@ -2,8 +2,9 @@ const jwt = require("jsonwebtoken");
 
 // authenticator middleware
 const authenticator = async (req, res, next) => {
-  console.log("cookies: ", req.cookies.test);
-  const token = req.cookies["budget-manager-token"];
+  // get token from req body
+  const { token } = req.body;
+  
   try {
     // check if token exists
     if (!token) {

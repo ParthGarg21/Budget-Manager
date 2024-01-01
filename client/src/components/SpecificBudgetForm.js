@@ -32,7 +32,12 @@ const SpecificBudgetForm = ({ budget }) => {
         "Content-Type": "application/json",
       },
       credentials: "include",
-      body: JSON.stringify({ name, expenseAmount, budgetId }),
+      body: JSON.stringify({
+        name,
+        expenseAmount,
+        budgetId,
+        token: localStorage.getItem("token"),
+      }),
     });
 
     const { data, message } = await res.json();

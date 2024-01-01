@@ -14,9 +14,12 @@ const useCheckIsLogin = async (setLoading, route) => {
   const { setUser, setExpenses, setBudgets } = useContext(userContext);
 
   const checkIsLogin = async () => {
-    console.log(`http://localhost:8000/users/current-user`);
     const res = await fetch(`http://localhost:8000/users/current-user`, {
-      method: "GET",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ token: localStorage.getItem("token") }),
       credentials: "include",
     });
 

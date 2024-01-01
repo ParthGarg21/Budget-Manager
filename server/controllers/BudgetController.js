@@ -3,7 +3,7 @@ const User = require("../models/User");
 
 // get all budgets
 const getAllBudgets = async (req, res) => {
-  // get the userId from the req object set using the cookies
+  // get the userId from the req object set using authenticator middleware
   const { userId } = req;
   try {
     const budgets = await Budget.find({ userId });
@@ -44,7 +44,7 @@ const getBudget = async (req, res) => {
 
 // create a new budget
 const createBudget = async (req, res) => {
-  // get the userId from the req object set using the cookies
+  // get the userId from the req object set using authenticator middleware
   const { userId } = req;
 
   // get the name and amount from the req body
@@ -82,7 +82,7 @@ const createBudget = async (req, res) => {
 
 // delete a budget
 const deleteBudget = async (req, res) => {
-  // get the userId from the req object set using the cookies
+  // get the userId from the req object set using authenticator middleware
   const { userId } = req;
 
   // get the budget id from the req params

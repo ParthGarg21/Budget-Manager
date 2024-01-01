@@ -4,7 +4,7 @@ const User = require("../models/User");
 
 // get all expenses
 const getAllExpenses = async (req, res) => {
-  // get the userId from the req object set using the cookies
+  // get the userId from the req object set using authenticator middleware
   const { userId } = req;
 
   try {
@@ -25,7 +25,7 @@ const getAllExpenses = async (req, res) => {
 
 // create a new expense
 const createExpense = async (req, res) => {
-  // get the userId from the req object set using the cookies
+  // get the userId from the req object set using authenticator middleware
   const { userId } = req;
 
   // get the name and amount from the req body, and also the current budgetId
@@ -80,7 +80,7 @@ const deleteExpense = async (req, res) => {
   // get the expense id from the req params
   const { id } = req.params;
 
-  // get the userId from the req object set using the cookies
+  // get the userId from the req object set using authenticator middleware
   const { userId } = req;
 
   // the current budgetId

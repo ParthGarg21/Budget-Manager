@@ -8,8 +8,10 @@ const {
 
 const router = express.Router();
 
-router.route("/").get(getAllBudgets).post(createBudget);
+router.route("/").post(createBudget);
 
-router.route("/:id").get(getBudget).delete(deleteBudget);
+router.route("/get-all").post(getAllBudgets);
+
+router.route("/:id").post(getBudget).delete(deleteBudget);
 
 module.exports = router;

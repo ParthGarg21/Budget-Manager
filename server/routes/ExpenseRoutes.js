@@ -7,7 +7,9 @@ const {
 
 const router = express.Router();
 
-router.route("/").post(createExpense).get(getAllExpenses)
+router.route("/").post(createExpense);
+
+router.route("/get-all").post(getAllExpenses);
 
 router.route("/:id").delete(deleteExpense);
 

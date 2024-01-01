@@ -21,16 +21,14 @@ const NavBar = () => {
    * logout the user by making a get request to the server
    */
 
-  const handleDashboard = async () => {
-    navigate("/dashboard");
-  };
-
   const handleLogOut = async () => {
     const res = await fetch(`http://localhost:8000/users/logout`, {
       method: "GET",
       credentials: "include",
     });
     if (res.ok) {
+      // remove the token from local storage and set user context to null
+      localStorage.removeItem("token");
       setUser(null);
       navigate("/");
     }

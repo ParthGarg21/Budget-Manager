@@ -2,9 +2,9 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
-// get the current user
+// get the current user --> convert to post
 const getCurrentUser = async (req, res) => {
-  // get the userId from the req object set using the cookies
+  // get the userId from the req object set by the authenticator middleware
   const { userId } = req;
 
   try {
@@ -39,7 +39,16 @@ const registerUser = async (req, res) => {
 
     // generate a hashed password
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = await User.create({ userName, password: hashedPassword });
+
+    // create a new user
+    const newUser = new User({ userName, password: hashedPassword });
+
+    // create a jwt token for authentication
+    newUser.token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
+
+    // save the user to the database
+    await newUser.save();
+
     res.status(201).json({
       status: "success",
       data: {
@@ -63,18 +72,11 @@ const loginUser = async (req, res) => {
     if (!user) {
       throw new Error("User does not exist");
     }
+   
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       throw new Error("Wrong Password!");
     }
-
-    // create a jwt token for authentication
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-
-    // set a cookie on the client side with month of expiration in the response
-    res.cookie("budget-manager-token", token, {
-      maxDuration: 31 * 24 * 60 * 60 * 1000,
-    });
 
     res.status(200).json({
       status: "success",
@@ -90,9 +92,8 @@ const loginUser = async (req, res) => {
   }
 };
 
-// logout an existing user by reseting the token cookie
+// logout an existing user by clearing the token from local storage at the client side
 const logoutUser = (req, res) => {
-  res.clearCookie("budget-manager-token");
   res.status(200).json({
     status: "success",
     message: "Logged out successfully",

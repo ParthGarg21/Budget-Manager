@@ -5,7 +5,7 @@ dotenv.config();
 // npm packages
 const express = require("express");
 const mongoose = require("mongoose");
-const cookieParser = require("cookie-parser");
+// const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
 // utils
@@ -27,7 +27,7 @@ app.use(
     origin: "http://localhost:3000",
   })
 );
-app.use(cookieParser());
+// app.use(cookieParser());
 
 // router middleware
 app.use("/users", userRouter);

@@ -21,7 +21,10 @@ const ExpenseRow = ({ expense }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ budgetId: expense.budgetId }),
+      body: JSON.stringify({
+        budgetId: expense.budgetId,
+        token: localStorage.getItem("token"),
+      }),
       credentials: "include",
     });
 

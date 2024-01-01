@@ -65,7 +65,8 @@ const LoginForm = () => {
       setErr(message);
       return;
     }
-
+    // if a user is logged in, then set its token in local storage
+    localStorage.setItem("token", data.user.token);
     // set the user and navigate to the dashboard
     setUser(data.user);
     navigate("/dashboard");
