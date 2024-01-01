@@ -38,7 +38,7 @@ const BudgetForm = () => {
       return;
     }
 
-    const url = `http://localhost:8000/budgets`;
+    const url = `https://budget-app-server-1s1n.onrender.com/budgets`;
     const body = {
       name,
       budgetAmount: amount,

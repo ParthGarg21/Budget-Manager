@@ -17,7 +17,7 @@ const BudgetCard = ({ budget, color, isDetail }) => {
   // delete budget from the database and redirect to dashboard
   const handleDelete = async () => {
     const id = budget._id;
-    const res = await fetch(`http://localhost:8000/budgets/${id}`, {
+    const res = await fetch(`https://budget-app-server-1s1n.onrender.com/budgets/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

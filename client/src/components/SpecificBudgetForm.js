@@ -26,7 +26,7 @@ const SpecificBudgetForm = ({ budget }) => {
       return;
     }
 
-    const res = await fetch(`http://localhost:8000/expenses`, {
+    const res = await fetch(`https://budget-app-server-1s1n.onrender.com/expenses`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
